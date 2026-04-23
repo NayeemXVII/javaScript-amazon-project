@@ -61,7 +61,7 @@ document.querySelectorAll('.js-add-to-cart').forEach((buttons) => {
 
         // localStorage.setItem('cart', JSON.stringify(cart));
 
-        const productId = buttons.dataset.productId;
+        const { productId } = buttons.dataset;
         const selectorElm = document.querySelector(`.js-quantity-selector-${productId}`)
         const selectorValue = Number(selectorElm.value);
 

@@ -656,5 +656,21 @@ const products = [
       "apparel",
       "mens"
     ]
+  },
+  {
+    id: "id1",
+    image: "images/products/backpack.jpg",
+    name: "Travel BackPack",
+    rating: {
+      stars: 4,
+      count: 1500
+    },
+    priceCents: 1500,
+    keywords: [
+      "back",
+      "travel",
+      "backpack",
+      "fashionback"
+    ]
   }
 ];
