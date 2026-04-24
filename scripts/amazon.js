@@ -1,3 +1,5 @@
+import {products} from '../data/products.js';
+import {cart} from '../data/cart.js';
 
 let productsHTML =  '';
 
@@ -86,16 +88,14 @@ document.querySelectorAll('.js-add-to-cart').forEach((buttons) => {
         const addedMsgElm = document.querySelector(`.js-added-messege-${productId}`);
         addedMsgElm.classList.add('added-msg-show');
 
-        setTimeout(() => {
           const idTimeOut = timeOut.id;
           clearTimeout(idTimeOut);
 
-          timeOutId = setTimeout(() => {
+          const timeId = setTimeout(() => {
             addedMsgElm.classList.remove('added-msg-show');
           }, 2000);
 
-          timeOut.id = timeOutId;
-        });
+          timeOut.id = timeId;
 
         let cartQuantity = 0; 
 
