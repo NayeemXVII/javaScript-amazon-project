@@ -1,6 +1,7 @@
 import {cart} from '../data/cart.js';
 import {products} from '../data/products.js';
 import {priceCentsFix} from './utils/money.js';
+import saveToStorage from './utils/localStorage.js'
 
 let cartSummaryHTML = '';
 
@@ -101,6 +102,7 @@ document.querySelectorAll('.js-delete-btn').forEach((deleteBtn) => {
         cart.forEach((cartItems, i) => {
             if (cartItems.productId === deleteId) {
                 cart.splice(i, 1);
+                saveToStorage('cart', cart);
                 document.querySelector(`.js-cart-item-container-${deleteId}`).remove();
             };
         });
