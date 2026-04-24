@@ -1,4 +1,4 @@
-import {cart} from '../data/cart.js';
+import * as cartItemsControl from '../data/cart.js';
 import {products} from '../data/products.js';
 
 let productsHTML =  '';
@@ -56,56 +56,36 @@ products.forEach((product, index) => {
 
 document.querySelector('.products-grid').innerHTML = productsHTML;
 
+let idTimeOut;
+
+function updateCartQuantity() {
+  let cartQuantity = 0; 
+
+  cartItemsControl.cart.forEach((item) => {
+      cartQuantity += item.quantity
+  });
+
+  document.querySelector('.js-add-cart-quantity')
+      .innerText = cartQuantity;
+}
+
+function addedMessege(productId) {
+  const addedMsgElm = document.querySelector(`.js-added-messege-${productId}`);
+  addedMsgElm.classList.add('added-msg-show');
+    clearTimeout(idTimeOut);
+
+    idTimeOut = setTimeout(() => {
+      addedMsgElm.classList.remove('added-msg-show');
+    }, 2000);
+};
+
 document.querySelectorAll('.js-add-to-cart').forEach((buttons) => {
-
-    const timeOut = {};
-
     buttons.addEventListener('click', () => {
-
-        // localStorage.setItem('cart', JSON.stringify(cart));
-
         const { productId } = buttons.dataset;
-        const selectorElm = document.querySelector(`.js-quantity-selector-${productId}`)
+        const selectorElm = document.querySelector(`.js-quantity-selector-${productId}`);
         const selectorValue = Number(selectorElm.value);
-
-        let matchingItem;
-
-        cart.forEach((items) => {
-            if (items.productId === productId) {
-                matchingItem = items;
-            }
-        });
-
-        if (matchingItem) {
-            matchingItem.quantity += selectorValue;
-        } else {
-            cart.push({
-                productId,
-                quantity: selectorValue
-            });
-        };
-
-        const addedMsgElm = document.querySelector(`.js-added-messege-${productId}`);
-        addedMsgElm.classList.add('added-msg-show');
-
-          const idTimeOut = timeOut.id;
-          clearTimeout(idTimeOut);
-
-          const timeId = setTimeout(() => {
-            addedMsgElm.classList.remove('added-msg-show');
-          }, 2000);
-
-          timeOut.id = timeId;
-
-        let cartQuantity = 0; 
-
-        cart.forEach((item) => {
-            cartQuantity += item.quantity
-        });
-
-        document.querySelector('.js-add-cart-quantity')
-            .innerText = cartQuantity;
-
-
+        cartItemsControl.addToCart(productId, selectorValue);
+        addedMessege(productId);
+        updateCartQuantity();
     });
 });
