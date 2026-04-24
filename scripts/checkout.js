@@ -1,7 +1,8 @@
 import {cart} from '../data/cart.js';
 import {products} from '../data/products.js';
 import {priceCentsFix} from './utils/money.js';
-import saveToStorage from './utils/localStorage.js'
+import saveToStorage from './utils/localStorage.js';
+import {cartTotalQuantity} from './utils/totalCartItem.js';
 
 let cartSummaryHTML = '';
 
@@ -104,7 +105,12 @@ document.querySelectorAll('.js-delete-btn').forEach((deleteBtn) => {
                 cart.splice(i, 1);
                 saveToStorage('cart', cart);
                 document.querySelector(`.js-cart-item-container-${deleteId}`).remove();
+                document.querySelector('.js-return-to-home-link')
+                    .innerText = `${cartTotalQuantity(cart)} items`;
             };
         });
     });
 });
+
+document.querySelector('.js-return-to-home-link')
+    .innerText = `${cartTotalQuantity(cart) || 0} items`;

@@ -1,6 +1,7 @@
 import * as cartItemsControl from '../data/cart.js';
 import {products} from '../data/products.js';
 import {priceCentsFix} from './utils/money.js';
+import {cartTotalQuantity} from './utils/totalCartItem.js';
 
 updateCartQuantity();
 
@@ -62,15 +63,9 @@ document.querySelector('.products-grid').innerHTML = productsHTML;
 let idTimeOut;
 
 function updateCartQuantity() {
-  let cartQuantity = 0; 
-
-  cartItemsControl.cart.forEach((item) => {
-      cartQuantity += item.quantity
-  });
-
   document.querySelector('.js-add-cart-quantity')
-      .innerText = cartQuantity;
-}
+      .innerText = cartTotalQuantity(cartItemsControl.cart);
+};
 
 function addedMessege(productId) {
   const addedMsgElm = document.querySelector(`.js-added-messege-${productId}`);
