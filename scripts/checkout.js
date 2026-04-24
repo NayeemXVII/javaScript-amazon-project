@@ -37,9 +37,10 @@ cart.forEach((cartItem) => {
             <span>
             Quantity: <span class="quantity-label">${cartItem.quantity}</span>
             </span>
-            <span class="update-quantity-link link-primary">
+            <span class="update-quantity-link link-primary js-update-btn" data-product-id="${matchingProducts.id}">
             Update
             </span>
+            <input class="quantity-input js-quantity-input-${matchingProducts.id}">
             <span class="delete-quantity-link link-primary js-delete-btn" data-delete-id="${matchingProducts.id}">
             Delete
             </span>
@@ -97,6 +98,8 @@ cart.forEach((cartItem) => {
 document.querySelector('.js-order-summary')
     .innerHTML = cartSummaryHTML;
 
+const checkOutQuantity = document.querySelector('.js-return-to-home-link');
+
 document.querySelectorAll('.js-delete-btn').forEach((deleteBtn) => {
     deleteBtn.addEventListener('click', () => {
         const {deleteId} = deleteBtn.dataset;
@@ -109,8 +112,36 @@ document.querySelectorAll('.js-delete-btn').forEach((deleteBtn) => {
                     .innerText = `${cartTotalQuantity(cart)} items`;
             };
         });
+
+        checkOutQuantity.innerText = `${cartTotalQuantity(cart) || 0} items`;
     });
 });
 
-document.querySelector('.js-return-to-home-link')
-    .innerText = `${cartTotalQuantity(cart) || 0} items`;
+checkOutQuantity.innerText = `${cartTotalQuantity(cart) || 0} items`;
+
+document.querySelectorAll('.js-update-btn').forEach((updateButtons) => {
+    let isSave = false;
+    updateButtons.addEventListener('click', () => {
+
+        const {productId} = updateButtons.dataset;
+
+        const inputElm = document.querySelector(`.js-quantity-input-${productId}`);
+        inputElm.classList.toggle('quantity-input-toggle');
+        const value = Number(inputElm.value);
+
+        if (!isSave) {
+            updateButtons.innerText = 'Save';
+            isSave = true;
+        } else {
+            updateButtons.innerText = 'Update';
+            cart.forEach((cartItem) => {
+                if (cartItem.productId === productId) {
+                    cartItem.quantity = value;
+                }
+
+                saveToStorage('cart', cart);
+            });
+            isSave = false;
+        };
+    });
+});
