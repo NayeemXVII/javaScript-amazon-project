@@ -1,6 +1,8 @@
 import * as cartItemsControl from '../data/cart.js';
 import {products} from '../data/products.js';
 
+updateCartQuantity();
+
 let productsHTML =  '';
 
 products.forEach((product, index) => {
