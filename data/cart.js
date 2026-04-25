@@ -34,3 +34,19 @@ export function addToCart(productId, selectorValue) {
 
   saveToStorage('cart', cart);
 }
+
+export function updateDeleveryOption(productId, deleveryOptionId) {
+    let matchingItem;
+
+  cart.forEach((cartItem) => {
+      if (cartItem.productId === productId) {
+          matchingItem = cartItem;
+      };
+  });
+
+
+
+  matchingItem.deleveryOptionId = deleveryOptionId;
+
+  saveToStorage('cart', cart);
+};

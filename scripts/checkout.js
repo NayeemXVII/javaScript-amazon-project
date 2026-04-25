@@ -1,5 +1,5 @@
 
-import {cart} from '../data/cart.js';
+import {cart, updateDeleveryOption} from '../data/cart.js';
 import {products} from '../data/products.js';
 import {priceCentsFix} from './utils/money.js';
 import saveToStorage from './utils/localStorage.js';
@@ -8,7 +8,9 @@ import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import { deleveryOptions } from '../data/deleveryOptions.js';
 
+renderCheckOutPage();
 
+function renderCheckOutPage() {
 const today = dayjs();
 let cartSummaryHTML = '';
 
@@ -89,7 +91,9 @@ function deleveryOptionHTML(matchingProducts, cartItem) {
         const dateFormate = deleveryDate.format('dddd, MMMM D');
 
         HTML += `
-            <div class="delivery-option">
+            <div class="delivery-option js-delevery-option"
+            data-product-id="${matchingProducts}"
+            data-delevery-id="${deleveryTime.id}">
             <input type="radio" ${isChecked}
             class="delivery-option-input"
             name="delivery-option-${matchingProducts}">
@@ -152,7 +156,18 @@ document.querySelectorAll('.js-update-btn').forEach((updateButtons) => {
 
                 saveToStorage('cart', cart);
             });
+
+            renderCheckOutPage();
             isSave = false;
         };
     });
 });
+
+document.querySelectorAll('.js-delevery-option').forEach((radioButtons) => {
+    radioButtons.addEventListener('click', () => {
+        const {productId, deleveryId} = radioButtons.dataset;
+        updateDeleveryOption(productId, deleveryId);
+        renderCheckOutPage();
+    });
+});
+}
