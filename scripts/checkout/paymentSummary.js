@@ -27,7 +27,7 @@ export function renderPaymentSummary() {
     </div>
 
     <div class="payment-summary-row">
-    <div>Items (${cartTotalQuantity(cart)}):</div>
+    <div>Items (${cartTotalQuantity(cart) || 0}):</div>
     <div class="payment-summary-money">$${priceCentsFix(productPriceCents)}</div>
     </div>
 
