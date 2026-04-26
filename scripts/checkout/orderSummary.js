@@ -1,12 +1,13 @@
 
 import {cart, updateDeleveryOption} from '../../data/cart.js';
-import {products} from '../../data/products.js';
+import {products, getProduct} from '../../data/products.js';
 import {priceCentsFix} from '../utils/money.js';
 import saveToStorage from '../utils/localStorage.js';
 import {cartTotalQuantity} from '../utils/totalCartItem.js';
 import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
-import { deleveryOptions } from '../../data/deleveryOptions.js';
+import { deleveryOptions, getDeleveryOptions } from '../../data/deleveryOptions.js';
+import { renderPaymentSummary } from './paymentSummary.js';
 
 export function renderCheckOutPage() {
     const today = dayjs();
@@ -15,25 +16,12 @@ export function renderCheckOutPage() {
     cart.forEach((cartItem) => {
         const productId = cartItem.productId;
 
-        let matchingProducts;
+        const matchingProducts = getProduct(productId);
+        const deleveryOptionId = cartItem.deleveryOptionId;
 
-        products.forEach((allProducts) => {
-            if (allProducts.id === productId) {
-                matchingProducts = allProducts;
-            };
-        });
-
-        let deleveryOption;
-
-        deleveryOptions.forEach((options) => {
-            if (cartItem.deleveryOptionId === options.id) {
-                deleveryOption = options;
-            };
-        });
+        const deleveryOption = getDeleveryOptions(deleveryOptionId);
 
         const dateAdd = today.add(deleveryOption.deleveryDays, 'days').format('dddd, MMMM D');
-
-        
 
         cartSummaryHTML += `<div class="cart-item-container js-cart-item-container-${matchingProducts.id}">
         <div class="delivery-date">
@@ -74,7 +62,8 @@ export function renderCheckOutPage() {
             </div>
             </div>
         </div>
-        </div>`
+        </div>
+        `
     });
 
     function deleveryOptionHTML(matchingProducts, cartItem) {
@@ -120,15 +109,15 @@ export function renderCheckOutPage() {
                 if (cartItems.productId === deleteId) {
                     cart.splice(i, 1);
                     saveToStorage('cart', cart);
-                    document.querySelector(`.js-cart-item-container-${deleteId}`).remove();
-                    document.querySelector('.js-return-to-home-link')
-                        .innerText = `${cartTotalQuantity(cart)} items`;
                 };
             });
 
-            checkOutQuantity.innerText = `${cartTotalQuantity(cart) || 0} items`;
+            renderCheckOutPage();
         });
     });
+
+    document.querySelector('.js-return-to-home-link')
+        .innerText = `${cartTotalQuantity(cart)} items`;
 
     checkOutQuantity.innerText = `${cartTotalQuantity(cart) || 0} items`;
 
@@ -168,4 +157,6 @@ export function renderCheckOutPage() {
             renderCheckOutPage();
         });
     });
-}
+
+    renderPaymentSummary();
+};

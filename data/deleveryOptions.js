@@ -15,3 +15,17 @@ export const deleveryOptions = [
         priceCents: 999
     },
 ];
+
+export function getDeleveryOptions(deleveryOptionId) {
+    let deleveryOption;
+
+    deleveryOptions.forEach((options) => {
+        if (deleveryOptionId === options.id) {
+            deleveryOption = options;
+        };
+    });
+
+    return deleveryOption || deleveryOption[0];
+};
+
+        
