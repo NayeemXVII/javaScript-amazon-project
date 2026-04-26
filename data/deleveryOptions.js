@@ -1,3 +1,7 @@
+import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
+
+const today = dayjs();
+
 export const deleveryOptions = [
     {
         id: 'id1',
@@ -15,6 +19,17 @@ export const deleveryOptions = [
         priceCents: 999
     },
 ];
+
+deleveryOptions.forEach((option) => {
+    const dayAdd = today.add(option.deleveryDays, 'day');
+    const dateWeek = dayAdd.format('dddd');
+
+    if (dateWeek === 'Sunday') {
+        option.deleveryDays = option.deleveryDays - 2;
+    } else if (dateWeek === 'Saturday') {
+        option.deleveryDays = option.deleveryDays - 1;
+    }
+});
 
 export function getDeleveryOptions(deleveryOptionId) {
     let deleveryOption;
