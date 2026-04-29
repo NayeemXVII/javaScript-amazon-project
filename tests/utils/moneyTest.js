@@ -12,4 +12,12 @@ describe('Test Suite: priceCentsFix', () => {
     it('rounds up to the nearest cents', () => {
         expect(priceCentsFix(2000.5)).toEqual('20.01');
     });
+
+    it('rounds down to the nearest cents', () => {
+        expect(priceCentsFix(2000.4)).toEqual('20.00');
+    });
+
+    it('priceCentsFix Work Wit Negetive Numbers', () => {
+        expect(priceCentsFix(-10)).toEqual('0.00');
+    });
 });

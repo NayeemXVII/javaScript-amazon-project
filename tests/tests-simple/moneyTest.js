@@ -22,3 +22,17 @@ if (priceCentsFix(2000.5) == '20.01') {
 } else {
     console.log('Failed');
 };
+
+console.log('rounds down to the nearest cents');
+if (priceCentsFix(2000.4) == '20.00') {
+    console.log('Passed');
+} else {
+    console.log('Failed');
+};
+
+console.log('Negetive Number Work in priceCentsFix');
+if (priceCentsFix(-10) === '0.00') {
+    console.log('passed');
+} else {
+    console.log('Failed');
+}

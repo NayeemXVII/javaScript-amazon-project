@@ -34,7 +34,7 @@ export function renderCheckOutPage() {
             <img class="product-image"
             src="${matchingProducts.image}">
 
-            <div class="cart-item-details">
+            <div class="cart-item-details js-test-product-name-${matchingProducts.id}">
             <div class="product-name">
                 ${matchingProducts.name}
             </div>
