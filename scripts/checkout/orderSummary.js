@@ -23,7 +23,9 @@ export function renderCheckOutPage() {
 
         const dateAdd = today.add(deleveryOption.deleveryDays, 'days').format('dddd, MMMM D');
 
-        cartSummaryHTML += `<div class="cart-item-container js-cart-item-container-${matchingProducts.id}">
+        cartSummaryHTML += `<div class="cart-item-container 
+        js-cart-item-container
+        js-cart-item-container-${matchingProducts.id}">
         <div class="delivery-date">
             Delivery date: ${dateAdd}
         </div>
@@ -39,7 +41,7 @@ export function renderCheckOutPage() {
             <div class="product-price">
                 $${priceCentsFix(matchingProducts.priceCents)}
             </div>
-            <div class="product-quantity">
+            <div class="product-quantity js-product-quantity-${matchingProducts.id}">
                 <span>
                 Quantity: <span class="quantity-label">${cartItem.quantity}</span>
                 </span>
@@ -47,7 +49,7 @@ export function renderCheckOutPage() {
                 Update
                 </span>
                 <input class="quantity-input js-quantity-input-${matchingProducts.id}">
-                <span class="delete-quantity-link link-primary js-delete-btn" data-delete-id="${matchingProducts.id}">
+                <span class="delete-quantity-link link-primary js-delete-btn js-delete-link-${matchingProducts.id}" data-delete-id="${matchingProducts.id}">
                 Delete
                 </span>
             </div>
