@@ -1,4 +1,4 @@
-import { priceCentsFix } from "../scripts/utils/money.js";
+import { priceCentsFix } from "../../scripts/utils/money.js";
 
 console.log('Test Suite: priceCentsFix');
 
