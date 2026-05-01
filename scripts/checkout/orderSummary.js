@@ -107,14 +107,7 @@ export function renderCheckOutPage() {
     document.querySelectorAll('.js-delete-btn').forEach((deleteBtn) => {
         deleteBtn.addEventListener('click', () => {
             const {deleteId} = deleteBtn.dataset;
-            cart.forEach((cartItems, i) => {
-                if (cartItems.productId === deleteId) {
-                    cart.splice(i, 1);
-                    saveToStorage('cart', cart);
-                };
-            });
-
-            renderCheckOutPage();
+            deletCartItem(deleteId)
         });
     });
 
@@ -161,4 +154,17 @@ export function renderCheckOutPage() {
     });
 
     renderPaymentSummary();
+};
+
+export function deletCartItem(deleteId) {
+    cart.forEach((cartItems, i) => {
+        if (cartItems.productId === deleteId) {
+            cart.splice(i, 1);
+            saveToStorage('cart', cart);
+        };
+    });
+
+    renderCheckOutPage();
+
+    return cart.length;
 };

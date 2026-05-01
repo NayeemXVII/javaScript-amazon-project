@@ -1,4 +1,5 @@
 import { addToCart, cart, loadFromStorage } from "../../data/cart.js";
+import { deletCartItem } from "../../scripts/checkout/orderSummary.js";
 
 describe('Test Suite: addToCart', () => {
 
@@ -57,6 +58,13 @@ describe('Test Suite: addToCart', () => {
 describe('Test Suite: removeFromCart', () => {
 
     beforeEach(() => {
+        document.querySelector('.js-test-container')
+            .innerHTML = `
+            <div class="js-order-summary"></div>
+            <div class="js-return-to-home-link"></div>
+            <div class="js-payment-summary"></div>
+        `;
+
         spyOn(localStorage, 'setItem');
         spyOn(localStorage, 'getItem').and.callFake(() => {
             return JSON.stringify([
@@ -64,10 +72,25 @@ describe('Test Suite: removeFromCart', () => {
                     productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
                     quantity: 1,
                     deleveryOptionId: 'id1'
+                },
+                {
+                    productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
+                    quantity: 1,
+                    deleveryOptionId: 'id2'
                 }
             ]);
         });
 
         loadFromStorage();
+    });
+
+    afterEach(() => {
+        document.querySelector('.js-test-container')
+            .innerHTML = '';
+    });
+
+    it('Remove Product From  The Cart', () => {
+        expect(deletCartItem('e43638ce-6aa0-4b85-b27f-e1d07eb678c6')).toEqual(1);
+        expect(localStorage.setItem).toHaveBeenCalledTimes(1);
     });
 });
