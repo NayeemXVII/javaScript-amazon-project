@@ -2,14 +2,14 @@ import saveToStorage from "../scripts/utils/localStorage.js";
 
 class Cart {
 cartItems;
-localKey;
+#localKey;
 
     constructor(localStorageKey) {
-        this.localKey = localStorageKey;
-        this.loadFromStorage();
+        this.#localKey = localStorageKey;
+        this.#loadFromStorage();
     };
 
-    loadFromStorage() {
+    #loadFromStorage() {
         this.cartItems = JSON.parse(localStorage.getItem(this.localKey)) || [
             {
                 productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
@@ -43,7 +43,7 @@ localKey;
         });
     };
 
-    saveToStorage(this.localKey, this.cartItems);
+    saveToStorage(this.#localKey, this.cartItems);
     };
 
     updateDeleveryOption(productId, deleveryOptionId) {
@@ -57,7 +57,7 @@ localKey;
 
     matchingItem.deleveryOptionId = deleveryOptionId;
 
-    saveToStorage(this.localKey, this.cartItems);
+    saveToStorage(this.#localKey, this.cartItems);
     };
 };
 
