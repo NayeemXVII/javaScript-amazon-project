@@ -39,7 +39,7 @@ export function renderCheckOutPage() {
                 ${matchingProducts.name}
             </div>
             <div class="product-price">
-                $${priceCentsFix(matchingProducts.priceCents)}
+                ${matchingProducts.getPrice()}
             </div>
             <div class="product-quantity js-product-quantity-${matchingProducts.id}">
                 <span>

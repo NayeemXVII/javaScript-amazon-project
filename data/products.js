@@ -1,3 +1,4 @@
+import { priceCentsFix } from "../scripts/utils/money.js";
 
 export function getProduct(productId) {
   let matchingProducts;
@@ -9,6 +10,30 @@ export function getProduct(productId) {
   });
 
   return matchingProducts;
+};
+
+class Product {
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
+
+  constructor(products) {
+    this.id = products.id;
+    this.image = products.image;
+    this.name = products.name;
+    this.rating = products.rating;
+    this.priceCents = products.priceCents;
+  };
+
+  getStarsUrl() {
+    return `images/ratings/rating-${this.rating.stars * 10}.png`;
+  };
+
+  getPrice() {
+    return `$${priceCentsFix(this.priceCents)}`
+  };
 };
 
 export const products = [
@@ -686,4 +711,6 @@ export const products = [
       "fashionback"
     ]
   }
-];
+].map((productDetils) => {
+  return new Product(productDetils);
+});
