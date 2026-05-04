@@ -44,7 +44,7 @@ products.forEach((product, index) => {
               <option value="10">10</option>
             </select>
           </div>
-
+          ${product.getChartLink()}
           <div class="product-spacer"></div>
 
           <div class="added-to-cart js-added-messege-${product.id}">

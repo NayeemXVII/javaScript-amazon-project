@@ -34,6 +34,23 @@ class Product {
   getPrice() {
     return `$${priceCentsFix(this.priceCents)}`
   };
+
+  getChartLink() {
+    return '';
+  }
+};
+
+class Clothing extends Product {
+  sizeChartLink;
+
+  constructor(productDetils) {
+    super(productDetils);
+    this.sizeChartLink = productDetils.sizeChartLink;
+  };
+
+  getChartLink() {
+    return `<a href="${this.sizeChartLink}" target="_blank">Size Chart</a>`;
+  };
 };
 
 export const products = [
@@ -712,5 +729,9 @@ export const products = [
     ]
   }
 ].map((productDetils) => {
+  if (productDetils.type === 'clothing') {
+    return new Clothing(productDetils);
+  }
+
   return new Product(productDetils);
 });
