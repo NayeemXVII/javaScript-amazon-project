@@ -53,6 +53,25 @@ class Clothing extends Product {
   };
 };
 
+class Appliance extends Product {
+  instructionsLink;
+  warrantyLink;
+
+  constructor(productDetils) {
+    super(productDetils);
+    this.instructionsLink = productDetils.instructionsLink;
+    this.warrantyLink = productDetils.warrantyLink;
+  }
+
+  getChartLink() {
+    return `
+    <a href="${this.instructionsLink}" target="_blank">Instructions</a>
+
+    <a href="${this.warrantyLink}" target="_blank">Warranty</a>
+    `
+  }
+}
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -113,7 +132,10 @@ export const products = [
       "toaster",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: 'appliances',
+    instructionsLink: './images/appliance-instructions.png',
+    warrantyLink: './images/appliance-warranty.png'
   },
   {
     id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
@@ -731,6 +753,8 @@ export const products = [
 ].map((productDetils) => {
   if (productDetils.type === 'clothing') {
     return new Clothing(productDetils);
+  } else if (productDetils.type === 'appliances') {
+    return new Appliance(productDetils);
   }
 
   return new Product(productDetils);
