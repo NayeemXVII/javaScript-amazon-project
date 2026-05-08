@@ -1,13 +1,17 @@
 import * as cartItemsControl from '../data/cart.js';
-import {products, loadProduct} from '../data/products.js';
+import {products, loadProductFetch /*loadProduct*/} from '../data/products.js';
 import {priceCentsFix} from './utils/money.js';
 import {cartTotalQuantity} from './utils/totalCartItem.js';
 
-new Promise((resolve) => {
-  loadProduct(() => {
-    resolve();
-  });
-}).then(amazonPageRender);
+// new Promise((resolve) => {
+//   loadProduct(() => {
+//     resolve();
+//   });
+// }).then(amazonPageRender);
+
+loadProductFetch().then(() => {
+  amazonPageRender();
+});
 
 function amazonPageRender() {
   updateCartQuantity();

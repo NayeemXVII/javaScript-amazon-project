@@ -1,11 +1,13 @@
 import { renderCheckOutPage } from "../../scripts/checkout/orderSummary.js";
 import { loadFromStorage, cart } from "../../data/cart.js";
-import { loadProduct } from "../../data/products.js";
+import { loadProductFetch } from "../../data/products.js";
 
 describe('Test Suite: Render Order Summary', () => {
 
 beforeAll((done) => {
-    loadProduct(done);
+    loadProductFetch().then(() => {
+        done();
+    });
 });
 
 beforeEach(() => {

@@ -1,5 +1,6 @@
 import { addToCart, cart, loadFromStorage } from "../../data/cart.js";
 import { deletCartItem } from "../../scripts/checkout/orderSummary.js";
+import { loadProductFetch } from "../../data/products.js";
 
 describe('Test Suite: addToCart', () => {
 
@@ -56,6 +57,12 @@ describe('Test Suite: addToCart', () => {
 });
 
 describe('Test Suite: removeFromCart', () => {
+
+    beforeAll((done) => {
+        loadProductFetch().then(() => {
+            done();
+        });
+    });
 
     beforeEach(() => {
         document.querySelector('.js-test-container')
