@@ -6,7 +6,15 @@ import { cart } from "../data/cart.js";
 import { loadProductFetch } from "../data/products.js";
 
 async function loadPage() {
-    await loadProductFetch();
+    try {
+
+        // throw 'Error1'
+
+        await loadProductFetch();
+    } catch (error) {
+        console.log('Unexpected Error. Please Try Again Later.');
+    };
+    
 
     renderCheckOutPage();
     renderPaymentSummary();
