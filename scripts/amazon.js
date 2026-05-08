@@ -3,7 +3,11 @@ import {products, loadProduct} from '../data/products.js';
 import {priceCentsFix} from './utils/money.js';
 import {cartTotalQuantity} from './utils/totalCartItem.js';
 
-loadProduct(amazonPageRender);
+new Promise((resolve) => {
+  loadProduct(() => {
+    resolve();
+  });
+}).then(amazonPageRender);
 
 function amazonPageRender() {
   updateCartQuantity();

@@ -5,7 +5,11 @@ import '../data/car.js';
 import { cart } from "../data/cart.js";
 import { loadProduct } from "../data/products.js";
 
-loadProduct(() => {
+new Promise((resolve) => {
+    loadProduct(() => {
+        resolve();
+    });
+}).then(() => {
     renderCheckOutPage();
     renderPaymentSummary();
 });
