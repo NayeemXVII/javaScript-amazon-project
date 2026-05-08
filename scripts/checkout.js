@@ -3,6 +3,9 @@ import { renderPaymentSummary } from './checkout/paymentSummary.js';
 // import '../data/cart-class.js';
 import '../data/car.js';
 import { cart } from "../data/cart.js";
+import { loadProduct } from "../data/products.js";
 
-renderCheckOutPage();
-renderPaymentSummary();
+loadProduct(() => {
+    renderCheckOutPage();
+    renderPaymentSummary();
+});
