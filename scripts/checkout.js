@@ -5,6 +5,15 @@ import '../data/car.js';
 import { cart } from "../data/cart.js";
 import { loadProductFetch } from "../data/products.js";
 
+async function loadPage() {
+    await loadProductFetch();
+
+    renderCheckOutPage();
+    renderPaymentSummary();
+};
+
+loadPage();
+
 // new Promise((resolve) => {
 //     loadProduct(() => {
 //         resolve();
@@ -14,7 +23,7 @@ import { loadProductFetch } from "../data/products.js";
 //     renderPaymentSummary();
 // });
 
-loadProductFetch().then(() => {
-    renderCheckOutPage();
-    renderPaymentSummary();
-});
+// loadProductFetch().then(() => {
+//     renderCheckOutPage();
+//     renderPaymentSummary();
+// });
