@@ -1,7 +1,12 @@
 import { renderCheckOutPage } from "../../scripts/checkout/orderSummary.js";
 import { loadFromStorage, cart } from "../../data/cart.js";
+import { loadProduct } from "../../data/products.js";
 
 describe('Test Suite: Render Order Summary', () => {
+
+beforeAll((done) => {
+    loadProduct(done);
+});
 
 beforeEach(() => {
     document.querySelector('.js-test-container')
@@ -29,7 +34,8 @@ beforeEach(() => {
     });
 
     loadFromStorage();
-    renderCheckOutPage();
+
+    renderCheckOutPage(); 
 });
 
 afterEach(() => {
